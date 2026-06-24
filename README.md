@@ -97,6 +97,22 @@ keep or drop something different, **fork the repo and adapt `render_vcard()`**
 
 ---
 
+## Get started in 30 seconds
+
+> ⚠️ **Back up your contacts before importing** — see the data-loss warning at the top of this page.
+
+```bash
+# Install (via pipx) and run:
+pipx install git+https://github.com/tehlowkeywiz/google-contacts-to-icloud.git
+mkdir input   # drop your Google CSV exports (+ optional iCloud .vcf) here
+google-contacts-to-icloud
+# then import output/icloud-ready.vcf into iCloud
+```
+
+No pip / no dependencies? Clone and run the single file instead — see [Quick start](#quick-start) below for both options and [Step-by-step usage](#step-by-step-usage) for the full walkthrough.
+
+---
+
 ## Example output
 
 Two cards from the bundled sample data show the shape of the output:
@@ -145,7 +161,7 @@ Running the tool against the bundled fixtures (`python3 merge_contacts.py --inpu
   Duplicate cards merged     : 2
   Final unique contacts      : 7
   Distinct phone numbers     : 10
-  Output written to          : /tmp/preview.vcf
+  Output written to          : /tmp/pp-preview.vcf
 ====================================================
 
   Field Manifest (aggregate counts, no PII)
@@ -156,15 +172,15 @@ Running the tool against the bundled fixtures (`python3 merge_contacts.py --inpu
   URL (websites)      :    2 seen, 0 kept (2 dropped: all — not a native iPhone field)
   BDAY                :    1 seen, all kept
   NOTE                :    1 seen, all kept
-  CATEGORIES          :    0 seen, all kept
+  CATEGORIES          :    0 seen
   NICKNAME            :    1 seen, all kept
   TITLE               :    1 seen, all kept
   Relations           :    1 seen, 0 kept (1 dropped: not a native iPhone field)
   Custom fields       :    1 seen, 0 kept (1 dropped: not a native iPhone field)
-  Photo (Google URL)  :    0 seen, all kept
+  Photo (Google URL)  :    0 seen
   PHOTO (vCard)       :    1 seen, all kept
   X-SOCIALPROFILE     :    1 seen, 0 kept (1 dropped: not a native iPhone field)
-  Extra vCard lines   :    0 seen, all kept
+  Extra vCard lines   :    0 seen
 ```
 
 ---
@@ -324,16 +340,18 @@ To change which fields are kept or dropped, **fork the repo and edit
 
 ## Quick start
 
+Two fast paths — pick one. For the full walkthrough (exporting from Google, iCloud cutover, iPhone switch), see [Step-by-step usage](#step-by-step-usage).
+
 **Option A — install as a command** (via [pipx](https://pipx.pypa.io)):
 
 ```bash
 pipx install git+https://github.com/tehlowkeywiz/google-contacts-to-icloud.git
 mkdir input   # drop your Google CSV exports + optional iCloud .vcf here
 google-contacts-to-icloud
-# back up, then import output/icloud-ready.vcf into iCloud
+# back up first, then import output/icloud-ready.vcf into iCloud
 ```
 
-**Option B — clone and run the single file** (no install):
+**Option B — clone and run the single file** (no install needed):
 
 ```bash
 git clone https://github.com/tehlowkeywiz/google-contacts-to-icloud.git
@@ -341,7 +359,7 @@ cd google-contacts-to-icloud
 mkdir input
 # drop your Google CSV exports and optional iCloud .vcf into input/
 python3 merge_contacts.py
-# back up, then import output/icloud-ready.vcf into iCloud
+# back up first, then import output/icloud-ready.vcf into iCloud
 ```
 
 ## Requirements

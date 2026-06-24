@@ -1092,5 +1092,34 @@ class TestMergeContactsSinglePassBehavior(unittest.TestCase):
         self.assertEqual(len(result), 2)
 
 
+# ---------------------------------------------------------------------------
+# Unit: FieldManifest._kept_str — zero-seen edge case
+# ---------------------------------------------------------------------------
+
+class TestFieldManifestZeroSeen(unittest.TestCase):
+    """The _kept_str helper must not claim 'all kept' when seen == 0."""
+
+    def _capture_print_report(self, manifest: mc.FieldManifest) -> str:
+        """Capture stdout from manifest.print_report()."""
+        import io
+        import unittest.mock
+        buf = io.StringIO()
+        with unittest.mock.patch('sys.stdout', buf):
+            manifest.print_report()
+        return buf.getvalue()
+
+    def test_zero_seen_does_not_say_all_kept(self):
+        """When seen == 0 (e.g. CATEGORIES or Photo URL on a fixture with none),
+        the report must NOT emit '0 seen, all kept' — that claim is misleading
+        for fields that are always dropped and meaningless for truly empty ones.
+        """
+        # A fresh FieldManifest has all counts at 0, which exercises every
+        # zero-seen row: CATEGORIES, Photo (Google URL), Extra vCard lines, etc.
+        manifest = mc.FieldManifest()
+        output = self._capture_print_report(manifest)
+        self.assertNotIn('0 seen, all kept', output,
+                         "zero-seen rows must not claim 'all kept'")
+
+
 if __name__ == '__main__':
     unittest.main()

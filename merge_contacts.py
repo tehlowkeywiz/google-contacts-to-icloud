@@ -1371,6 +1371,8 @@ class FieldManifest:
     def print_report(self) -> None:
         """Print the field-manifest report (aggregate counts only, no PII)."""
         def _kept_str(kept: int, seen: int, reason: str = '') -> str:
+            if seen == 0:
+                return f'{seen:>4} seen'
             if kept == seen:
                 return f'{seen:>4} seen, all kept'
             dropped = seen - kept
