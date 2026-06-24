@@ -1,5 +1,7 @@
 # google-contacts-to-icloud
 
+Merge all your Google Contacts exports into one clean, de-duplicated vCard for Apple Contacts / iCloud — zero dependencies, runs locally, your data never leaves your machine.
+
 [![tests](https://github.com/tehlowkeywiz/google-contacts-to-icloud/actions/workflows/test.yml/badge.svg)](https://github.com/tehlowkeywiz/google-contacts-to-icloud/actions/workflows/test.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 [![python: 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org)
@@ -128,6 +130,42 @@ The first is a person — name, company, **job title**, three phones with their
 contact's LinkedIn URL and Google group label were dropped. The second is a
 company-only contact (no person name), flagged `X-ABShowAs:COMPANY` so it files
 and displays under the company name.
+
+Running the tool against the bundled fixtures (`python3 merge_contacts.py --input tests/fixtures --output /tmp/preview.vcf`) produces a report like this — aggregate counts only, no personal data:
+
+```
+====================================================
+  google-contacts-to-icloud — Merge Report
+====================================================
+  CSV files processed        : 3
+  vCard files processed      : 1
+  Total input contacts       : 12
+  Phone-bearing kept         : 9
+  Phone-less dropped         : 3
+  Duplicate cards merged     : 2
+  Final unique contacts      : 7
+  Distinct phone numbers     : 10
+  Output written to          : /tmp/preview.vcf
+====================================================
+
+  Field Manifest (aggregate counts, no PII)
+  ------------------------------------------------
+  TEL (phones)        :   10 seen, all kept
+  EMAIL               :    5 seen, all kept
+  ADR (addresses)     :    1 seen, all kept
+  URL (websites)      :    2 seen, 0 kept (2 dropped: all — not a native iPhone field)
+  BDAY                :    1 seen, all kept
+  NOTE                :    1 seen, all kept
+  CATEGORIES          :    0 seen, all kept
+  NICKNAME            :    1 seen, all kept
+  TITLE               :    1 seen, all kept
+  Relations           :    1 seen, 0 kept (1 dropped: not a native iPhone field)
+  Custom fields       :    1 seen, 0 kept (1 dropped: not a native iPhone field)
+  Photo (Google URL)  :    0 seen, all kept
+  PHOTO (vCard)       :    1 seen, all kept
+  X-SOCIALPROFILE     :    1 seen, 0 kept (1 dropped: not a native iPhone field)
+  Extra vCard lines   :    0 seen, all kept
+```
 
 ---
 
@@ -316,7 +354,9 @@ python3 merge_contacts.py
 ## Running the tests
 
 The test suite uses the anonymized fixtures in `tests/fixtures/`. No real
-contact data is required.
+contact data is required. The suite is **119 tests and runs in under two
+seconds** — integration tests drive the full pipeline end-to-end against the
+anonymized fixtures.
 
 ```bash
 # With pytest installed:
@@ -360,7 +400,7 @@ pyproject.toml           — packaging metadata (pipx-installable)
 .github/workflows/
   test.yml               — CI: tests on Python 3.10–3.13 + ruff lint
 tests/
-  test_merge.py          — unit + integration tests (113 tests)
+  test_merge.py          — unit + integration tests (119 tests)
   fixtures/              — anonymized fixtures (fake 555-numbers, placeholder names)
     account-a.csv        — fake Google CSV: phone contacts + email-only contact
     account-b.csv        — fake Google CSV: duplicate Jane + unique Carlos
