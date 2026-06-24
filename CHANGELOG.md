@@ -19,6 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Company-only contacts (organization with no person name) flagged `X-ABShowAs:COMPANY`.
 - iCloud vCard passthrough: contacts not merged with a Google record are emitted from their original vCard block with the field policy applied (preserving embedded photos and item-groups).
 - Aggregate field-manifest report printed to stdout after every run (no PII).
-- 119 unit and integration tests covering the full pipeline against anonymized fixtures.
+- 120 unit and integration tests covering the full pipeline against anonymized fixtures.
 - CI on Python 3.10–3.13 via GitHub Actions.
 - pipx-installable via `pipx install git+https://github.com/tehlowkeywiz/google-contacts-to-icloud.git`.

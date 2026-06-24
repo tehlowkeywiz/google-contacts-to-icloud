@@ -372,7 +372,7 @@ python3 merge_contacts.py
 ## Running the tests
 
 The test suite uses the anonymized fixtures in `tests/fixtures/`. No real
-contact data is required. The suite is **119 tests and runs in under two
+contact data is required. The suite is **120 tests and runs in under two
 seconds** — integration tests drive the full pipeline end-to-end against the
 anonymized fixtures.
 
@@ -418,7 +418,7 @@ pyproject.toml           — packaging metadata (pipx-installable)
 .github/workflows/
   test.yml               — CI: tests on Python 3.10–3.13 + ruff lint
 tests/
-  test_merge.py          — unit + integration tests (119 tests)
+  test_merge.py          — unit + integration tests (120 tests)
   fixtures/              — anonymized fixtures (fake 555-numbers, placeholder names)
     account-a.csv        — fake Google CSV: phone contacts + email-only contact
     account-b.csv        — fake Google CSV: duplicate Jane + unique Carlos
