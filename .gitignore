@@ -27,6 +27,7 @@ uv.lock
 # macOS
 .DS_Store
 
-# Claude Code state (worktrees, session files)
-.claude/settings.local.json
-.claude/worktrees/
+# Claude Code state — public repo: ignore everything under .claude/ except
+# the drift registry, which the weekly drift routine reads from GitHub
+.claude/*
+!.claude/registry.yml
