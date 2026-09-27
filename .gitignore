@@ -28,4 +28,5 @@ uv.lock
 .DS_Store
 
 # Claude Code state (worktrees, session files)
-.claude/
+.claude/settings.local.json
+.claude/worktrees/
