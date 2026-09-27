@@ -1,0 +1,11 @@
+# Drift-registry entry (registry v2). Non-derivable per-repo facts only.
+# Schema and field meanings: tehlowkeywiz/dotclaude .claude/registry.yml.
+# Class definitions: tehlowkeywiz/dotclaude portfolio/classes.md.
+
+summary: "Public MIT Python CLI that merges Google Contacts CSV exports into one deduplicated vCard for iCloud import."
+classes: [D]
+status: backburner
+since: '2026-09-26'
+linear_project_id: null  # no Linear project yet
+repo_class: project
+merge_mode: normal
